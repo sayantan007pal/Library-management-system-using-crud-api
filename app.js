@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 
 const expHbs = require('express3-handlebars');
+var bodyParser = require('body-parser');
+
 const bookRoute = require('./routes/book');
 
 var indexRouter = require('./routes/index');
@@ -21,6 +23,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//parse application/x-www-form-urlencoded // used to send any files
+app.use(bodyParser.urlencoded({extended: false}))
+
+//parse application/json  //used to send names
+app.use(bodyParser.json())
 
 app.use('/', indexRouter);
 app.use('/book',bookRoute);
